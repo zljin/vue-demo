@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>course12: 计算属性computed</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <h2>add: {{add()}}</h2>
+        <h2>add: {{add()}}</h2>
+        <h2>sum: {{sum}}</h2>
+        <h2>sum: {{sum}}</h2>
+
+        x <input type="text" v-model.number="data.x"> <br>
+        y <input type="text" v-model.number="data.y"> <br>
+
+    </div>
+
+    <script type="module">
+        import {createApp,reactive,computed} from './vue.esm-browser.js'
+        createApp({
+            setup() {
+                const data = reactive({
+                    x: 10,
+                    y: 20
+                })
+    
+                //不带缓存的计算
+                let add = () => {
+                    console.log('add')
+                    return data.x + data.y
+                }
+    
+                //带缓存的计算
+    
+                const sum = computed(() => {
+                    console.log('sum')
+                    return data.x + data.y
+                })
+    
+                return {
+                    data,
+                    add,
+                    sum
+                }
+            }
+        }).mount('#app')
+    
+    </script>
+    
+</body>
+</html>
+

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>course10: v-model 修饰符</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <h3>url: {{web.url}}</h3>
+        <h3>user: {{web.user}}</h3>
+
+        实时渲染 <input type="text" v-model="web.url"> <br>
+
+        在失去焦点或按下回车键后渲染 <input type="text" v-model.lazy="web.url"> <br>
+
+        输入框中的值转换为数字 <input type="text" v-model.number="web.user"> <br>
+
+        去除首尾空格 <input type="text" v-model.trim="web.url"> <br>
+
+
+    </div>
+
+    <script type="module">
+        import {createApp,reactive} from './vue.esm-browser.js'
+        createApp({
+            setup() {
+                const web = reactive({
+                    url: 'https://zljin.github.io',
+                    user: 10
+                })
+    
+                return {
+                    web
+                }
+            }
+        }).mount('#app')
+    
+    </script>
+    
+</body>
+</html>
+

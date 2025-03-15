@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>course03: ref和reactive区别</title>
+
+</head>
+<body>
+    
+    <div id="app">
+        {{message}}
+
+        <h2>{{web.title}}</h2>
+        <h2>{{web.url}}</h2>
+        <h2>{{number}}</h2>
+        <h2>{{array}}</h2>
+    </div>
+
+
+    <script type="module">
+        import {createApp, reactive, ref} from './vue.esm-browser.js'
+        createApp({
+            setup() {
+                const number = ref(10) //ref适用于单个基本类型的数据 如number,string等
+                number.value = 20 //number为引用类型,所以需要通过value属性来访问
+    
+                const array = ref([1,2,3])
+                array.value.push(4) //array为引用类型,所以需要通过value属性来访问
+    
+                const web = reactive({ //reactive适用于复杂数据类型，如对象、数组等
+                    title: "zljin的博客",
+                    url:"https://zljin.github.io"
+                })
+    
+                web.title = "zljin的博客2" //使用reactive创建的响应式对象，可以直接修改属性值
+    
+                return {
+                    message: 'Hello Vue 3',
+                    web,
+                    number,
+                    array 
+                }
+            }
+        }).mount('#app')
+    
+    
+    </script>
+    
+</body>
+</html>
+

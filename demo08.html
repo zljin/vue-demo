@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>course08: 遍历数组或对象 v-for</title>
+</head>
+
+<style>
+    .testColor {
+        color: red;
+    }
+</style>
+
+<body>
+
+    <div id="app">
+
+        <ul>
+            <li v-for="num in data.nums">
+                {{num}}
+            </li>
+        </ul>
+
+        <ul>
+            <li v-for="(v,i) in data.nums">
+                index:{{i}} value:{{v}}
+            </li>
+        </ul>
+
+        <ul>
+            <li v-for="(v,k) in data.user">
+                key:{{k}} value:{{v}}
+            </li>
+        </ul>
+
+        <ul>
+            <li v-for="(value,key,index) in data.user">
+                index:{{ index }}  key:{{key}} value:{{value}}
+            </li>
+        </ul>
+
+
+        <!--Vue会编译<template>里的内容，但是不会将其作为 DOM元素 渲染到页面上-->
+        <ul>
+            <template v-for="(value,key,index) in data.user">
+                <li v-if="index%2==0">
+                    index:{{ index }}  key:{{key}} value:{{value}}
+                </li>
+            </template>
+        </ul>
+
+
+        <!--:key 的值需要保证唯一性，提高性能 -->
+        <!--:title 鼠标悬停即有默认值 -->
+        <ul>
+            <li v-for="(value,index) in data.techs" :title="value.name" :key="value.id">
+                index:{{ index }} valueId:{{value.id}} valueName:{{value.name}}
+            </li>
+        </ul>
+
+    </div>
+
+    <script type="module">
+        import {createApp,reactive} from './vue.esm-browser.js'
+        createApp({
+            setup() {
+                const data = reactive({
+                    nums: ["十一","十二","十三","十四"],//array
+                    user:{
+                        name: "zljin",
+                        age: 18
+                    },
+                    techs: [
+                        {id:100,name:"math",web:"math.com"},
+                        {id:101,name:"english",web:"english.com"}
+                    ]
+                })
+    
+                return {
+                    data
+                }
+            }
+        }).mount('#app')
+    
+    </script>
+    
+</body>
+</html>
+

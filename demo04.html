@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>course04: 绑定事件v-on和按键修饰符</title>
+
+</head>
+<body>
+    
+    <div id="app">
+        {{message}}
+
+        <h2>{{web.title}}</h2>
+        <h2>{{web.url}}</h2>
+        <h2>{{web.user}}</h2>
+
+        <button v-on:click="edit">修改</button> <br>
+        <button @click="edit">修改-简写形式</button> <hr>
+
+        回车 <input type="text" @keyup.enter="add(77,23)"> <br>
+        空格 <input type="text" @keyup.space="add(1,2)"> <br>
+        Tab <input type="text" @keydown.tab="add(3,4)"> <br>
+        w <input type="text" @keyup.w="add(5,6)"> <br>
+        ctrl + a <input type="text" @keyup.ctrl.a="add(5,10)"> <br>
+        ctrl + enter <input type="text" @keyup.ctrl.enter="add(10,10)"> <br>
+    </div>
+
+    <script type="module">
+        import {createApp, reactive, ref} from './vue.esm-browser.js'
+        createApp({
+            setup() {
+                const web = reactive({
+                    title: "zljin的博客",
+                    url:"https://zljin.github.io",
+                    user: 0
+                })
+    
+                const edit = () => {
+                    web.title = "zljin的博客2"
+                }
+    
+                const add = (a,b) => {
+                    web.user += a + b
+                }
+    
+    
+                return {
+                    message: 'Hello Vue 3',
+                    web,
+                    edit,
+                    add
+                }
+            }
+        }).mount('#app')
+    
+    
+    </script>
+</body>
+</html>
+

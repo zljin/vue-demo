@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>course07: 动态属性绑定 v-bind</title>
+</head>
+
+<style>
+    .testColor {
+        color: red;
+    }
+</style>
+
+<body>
+
+    <div id="app">
+        
+        <!-- :value -->
+        <h3>value="zljin.github.io"</h3>
+        <input type="text" value="zljin.github.com">
+
+        <h3>v-bind:value="web.url"</h3>
+        <input type="text" v-bind:value="web.url">
+
+        <h3>:value="web.url"</h3>
+        <input type="text" :value="web.url">
+
+        <!-- :src -->
+        <h3>src="saibo.jpg"</h3>
+        <img src="saibo.jpg" alt="">
+
+        <h3>:src="web.img"</h3>
+        <img :src="web.img" alt="">
+
+        <!-- :class -->
+        <h3>class="testColor"</h3>
+        <b class="testColor">hello vue</b>
+
+        <h3>:class="{testColor:web.fontStatus}"</h3>
+        <b :class="{testColor:web.fontStatus}">hello vue</b>
+
+
+    </div>
+
+    <script type="module">
+        import {createApp,reactive} from './vue.esm-browser.js'
+        createApp({
+            setup() {
+    
+                const web = reactive({
+                    url: "https://zljin.github.io",
+                    img: "saibo.jpg",
+                    fontStatus: false
+                })
+    
+                return {
+                    web
+                }
+            }
+        }).mount('#app')
+    
+    </script>
+    
+</body>
+</html>
+

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>course11: 渲染数据v-text和v-html</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <h3>url: {{web.title}}</h3>
+
+        <!-- v-test将数据解析为纯文本格式 -->
+        <h3 v-text="web.title"></h3>
+
+        <!-- v-html将数据解析为html格式 -->
+        <h3 v-html="web.url"></h3>
+
+
+    </div>
+
+    <script type="module">
+        import {createApp,reactive} from './vue.esm-browser.js'
+        createApp({
+            setup() {
+                const web = reactive({
+                    url: "<i style='color:blue;'>https://zljin.github.io</i>",
+                    title: "<i style='color:blue;'>zljin的博客</i>"
+                })
+    
+                return {
+                    web
+                }
+            }
+        }).mount('#app')
+    
+    </script>
+    
+</body>
+</html>
+

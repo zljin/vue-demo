@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>course02: Vue3模块化开发</title>
+
+</head>
+<body>
+    
+    <div id="app">
+        {{message}}
+
+        <h2>{{web.title}}</h2>
+        <h2>{{web.url}}</h2>
+    </div>
+
+    <script type="module">
+        import {createApp,reactive} from './vue.esm-browser.js'
+        createApp({
+            setup() {
+    
+                const web = reactive({
+                    title: "zljin的博客",
+                    url:"https://zljin.github.io"
+                })
+    
+                return {
+                    message: 'Hello Vue 3',
+                    web
+                }
+            }
+        }).mount('#app')
+    
+    
+    </script>
+    
+</body>
+</html>
+

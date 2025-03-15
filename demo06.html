@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>course06: 条件渲染 v-if</title>
+</head>
+<body>
+
+    <div id="app">
+        {{web.show}} <hr>
+
+        <p v-show="web.show">zljin.github.io</p>
+        <p v-if="web.show">https://zljin.github.io</p> <!--性能不强，会频繁的在dom元素中增加和删除 为了性能推荐使用v-show -->
+
+        <button @click="toggle">切换显示状态</button>
+
+        <p v-if="web.user < 1000">新网站</p>
+        <p v-else-if="web.user >= 1000 && web.user < 10000">优秀网站</p>
+        <p v-else>资深网站</p>
+    </div>
+
+    <script type="module">
+        import {createApp,reactive} from './vue.esm-browser.js'
+        createApp({
+            setup() {
+    
+                const web = reactive({
+                    show: true,
+                    user: 1500
+                })
+    
+                const toggle = () => {
+                    web.show = !web.show
+                }
+    
+                return {
+                    web,
+                    toggle
+                }
+            }
+        }).mount('#app')
+    
+    </script>
+    
+</body>
+</html>
+
