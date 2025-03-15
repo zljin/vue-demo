@@ -5,7 +5,7 @@ https://cn.vuejs.org/guide/quick-start.html
 
 ## 第一阶段(vue基础语法): demo01-demo14
 
-## 第二阶段(功能实战): demo15-demo17
+## 第二阶段(功能实战): demo15-demo19
 
 ### demo17:axios的使用
 

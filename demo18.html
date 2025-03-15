@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>案例4: 购物车案例</title>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <table>
+            <thead>
+                <tr>
+                    <td><input type="checkbox" v-model="data.selected" @change="selectAll"/></td>
+                    <td>商品</td>
+                    <td>单价</td>
+                    <td>库存</td>
+                    <td colspan="2">操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(value, index) in data.list" :key="index">
+                    <!-- :value="value" 当前的传递商品对象 -->
+                    <!--  v-model="data.checkboxList" 选中的商品列表 -->
+                    <!-- :value是当前对象数据，取消勾选就会从v-model绑定的数组中剔除-->
+                    <td><input type="checkbox" :value="value" v-model="data.checkboxList" @change="changeSelect" /></td>
+                    <td>{{ value.name }}</td>
+                    <td>{{ value.price }}</td>
+                    <td>{{ value.stock }}</td>
+                    <td>
+                        <button @click="add(value)">+</button>
+                        {{value.number}}
+                        <button @click="sub(value)">-</button>
+                    </td>
+                    <td><button @click="del(index,value.id)">删除</button></td>
+                </tr>
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td>总价: {{totalPrice()}}</td>
+                </tr>
+            </tfoot>
+
+        </table>
+
+
+
+
+    </div>
+
+
+    <script type="module">
+        import { createApp, reactive } from './vue.esm-browser.js'
+
+        createApp({
+            setup() {
+                const data = reactive({
+                    selected: false, //绑定全选和取消全选
+                    checkboxList: [], //选中的商品
+                    list: [ //初始的商品数据
+                        { id: 1, name: "商品1", price: 100, number: 1, stock: 10 },
+                        { id: 2, name: "商品2", price: 200, number: 2, stock: 10 },
+                        { id: 3, name: "商品3", price: 300, number: 1, stock: 10 },
+                        { id: 4, name: "商品4", price: 400, number: 3, stock: 10 },
+                        { id: 5, name: "商品5", price: 500, number: 4, stock: 10 },
+                    ]
+                })
+
+                const selectAll = () => {
+                    console.log(data.selected)
+                    if(data.selected){
+                        data.checkboxList = data.list
+                    }else{
+                        data.checkboxList = []
+                    }
+                    console.log(data.checkboxList)
+                }
+
+                const changeSelect = () => {
+                    console.log(data.checkboxList)
+                    if(data.checkboxList.length === data.list.length && data.list.length != 0){
+                        data.selected = true
+                    }else{
+                        data.selected = false
+                    }
+                }
+
+                const totalPrice = () => {
+                    let total = 0
+                    data.checkboxList.forEach(item => {
+                        total += item.price * item.number
+                    })
+                    return total
+                }
+
+                const add = (value) => {
+                    value.number++
+                    if(value.number >= value.stock){
+                        value.number = value.stock
+                    }
+                }
+
+                const sub = (value) => {
+                    value.number--
+                    if(value.number <= 1){
+                        value.number = 1
+                    }
+                }
+
+                const del = (index,id) => {
+                    data.list.splice(index,1)
+                    data.checkboxList = data.checkboxList.filter(item => item.id != id)
+
+                    changeSelect()
+                }
+
+                return {
+                    data,
+                    selectAll,
+                    changeSelect,
+                    totalPrice,
+                    sub,
+                    add,
+                    del
+                }
+            }
+        }).mount("#app")
+
+
+    </script>
+
+
+
+</body>
+
+</html>
