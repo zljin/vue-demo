@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>案例3: axios实现文章搜索案例</title>
+    <script src="./axios.min.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <select v-model="data.type">
+            <option value="0">全部查询</option>
+            <option value="1">ID查询</option>
+        </select>
+
+        <input type="text" v-model="data.content">
+
+        <button @click="search">用户搜索</button>
+
+        <hr>
+        <div>
+            <label>ID: <input type="number" v-model="userData.id"></label>
+            <label>名字: <input type="text" v-model="userData.name"></label>
+            <label>密码: <input type="password" v-model="userData.password"></label>
+            <label>职业: <input type="text" v-model="userData.profession"></label>
+        </div>
+        <button @click="addUser">添加用户</button>
+
+        <hr>
+
+        <ul>
+            <li v-for="(value, index) in data.list" :key="index">
+                {{ value }}
+            </li>
+        </ul>
+
+    </div>
+
+    <script type="module">
+        import { createApp, reactive } from './vue.esm-browser.js'
+        // 使用 axios 作为全局变量
+        const axios = window.axios;
+
+        createApp({
+            setup() {
+
+                const data = reactive({
+                    type: "0",
+                    content: "",
+                    list: [],
+                    templist:[]
+                })
+
+                const userData = reactive({
+                    id: 0,
+                    name: "",
+                    password: "",
+                    profession: ""
+                })
+
+                const search = () => {
+                    console.log("type: ", data.type)
+                    if (data.type == "0") {
+                        axios.get(`http://localhost:8081/api/users`).then(response => {
+                            console.log("get.data: ", response.data)
+                            data.list = response.data
+                        }).catch(error => {
+                            console.log("get.error: ", error)
+                        }).finally(() => {
+                            console.log("get.finally")
+                        })
+                    }else if(data.type == "1"){
+                        axios.get(`http://localhost:8081/api/users/${data.content}`).then(response => {
+                            console.log("get.data: ", response.data)
+                            data.templist.push(response.data)
+                            data.list = data.templist
+                            data.templist = []
+                        }).catch(error => {
+                            console.log("get.error: ", error)
+                        }).finally(() => {
+                            console.log("get.finally")
+                        })
+                    }
+                }
+
+                const addUser = () => {
+                    const newUser = {
+                        id: userData.id,
+                        name: userData.name,
+                        password: userData.password,
+                        profession: userData.profession
+                    }
+                    console.log("newUser: ", newUser)
+                    axios.post(`http://localhost:8081/api/users`, newUser).then(response => {
+                        console.log("post.data: ", response.data)
+                        data.list.push(response.data)
+                    }).catch(error => {
+                        console.log("post.error: ", error)
+                    }).finally(() => {
+                        console.log("post.finally")
+                    })
+                }
+
+                return {
+                    data,
+                    userData,
+                    search,
+                    addUser
+                }
+            }
+        }).mount("#app")
+
+    </script>
+
+
+</body>
+
+</html>
