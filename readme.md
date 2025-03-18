@@ -14,3 +14,7 @@ https://github.com/zljin/nodejs-in-action/tree/master?tab=readme-ov-file#express
 后台代码如下 使用node.js express 实现的用户增删改查的restful api server
 
 https://github.com/zljin/nodejs-in-action/tree/master/src/express
+
+## 第三阶段(vite-vite) 基于vite创建vue3的项目-----组件篇
+
+/vite-vue-demo
