@@ -29,3 +29,9 @@ npm install pinia
 > 状态持久化插件
 
 npm i pinia-plugin-persistedstate
+
+## 第五阶段 vue-router的使用
+
+/vite-vue-router-demo
+
+npm install vue-router@4
