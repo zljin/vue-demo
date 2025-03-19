@@ -18,3 +18,14 @@ https://github.com/zljin/nodejs-in-action/tree/master/src/express
 ## 第三阶段(vite-vite) 基于vite创建vue3的项目-----组件篇
 
 /vite-vue-demo
+
+
+## 第四阶段 基于vite 使用pinia---进行状态管理
+
+/vite-pinia-demo
+
+npm install pinia
+
+> 状态持久化插件
+
+npm i pinia-plugin-persistedstate
