@@ -35,3 +35,21 @@ npm i pinia-plugin-persistedstate
 /vite-vue-router-demo
 
 npm install vue-router@4
+
+## 第六阶段 vite-element-plus基本使用
+
+cd /dev-element-plus 
+
+npm install
+
+npm run dev
+
+----------
+
+npm create vite@latest
+
+cd dev-element-plus
+
+npm install
+
+npm install  element-plus --save
